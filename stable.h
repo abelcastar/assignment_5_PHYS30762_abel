@@ -11,13 +11,15 @@ public:
 
     // Override decay — this shouldn't be allowed
     void decay() override {
-        std::cerr << "Decay attempt failed: Stable nucleus cannot decay." << std::endl;
+        std::cerr << "Decay attempt on " << get_type()
+                << " failed: Stable nucleus cannot decay.\n" << std::endl;
     }
+
 
     // Override print_data to show info clearly
     void print_data() const override {
-        std::cout << "Stable Nucleus: " << get_type()
+        std::cout << "\nStable Nucleus: " << get_type()
                   << " (Z=" << get_atomic_number()
-                  << ", A=" << get_atomic_mass() << ")" << std::endl;
+                  << ", A=" << get_atomic_mass() << ")\n" << std::endl;
     }
 };

@@ -10,16 +10,30 @@ int main() {
 
     stable_nucleus.decay(); 
 
-    RadioactiveNucleus rn(55, 137, "Cs", 30.17); // Half-life = 30.17 years
+    RadioactiveNucleus rn1(27, 60, "Co", 5.272);
+    RadioactiveNucleus rn2(55, 137, "Cs", 30.17);
+    RadioactiveNucleus rn3(11, 22, "Na", 2.603);
 
-    // Print initial state
-    rn.print_data();
 
-    // Trigger decay
-    rn.decay();
+    rn1.print_data();
+    rn1.decay();
+    rn1.print_data();
+    rn1.pair_production();
+    rn1.radiate();
 
-    // Print post-decay state
-    rn.print_data();
+    rn2.print_data();
+    rn2.decay();
+    rn2.print_data();
+    rn2.pair_production();
+    rn2.radiate();
+
+    rn3.print_data();
+    rn3.decay();
+    rn3.print_data();
+    rn3.decay();
+    rn3.pair_production();
+    rn3.radiate();
+
 
 
 
