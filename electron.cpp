@@ -2,17 +2,15 @@
 #include "photon.h"
 #include <iostream>
 
-std::shared_ptr<Photon> radiate(Electron& e) {
-    auto photon = std::make_shared<Photon>(100.0); // placeholder value
-    e.add_emitted_photon(photon);
-    return photon;
-}
-
-std::shared_ptr<Photon> Electron::radiate() {
-    auto photon = std::make_shared<Photon>(100.0); // placeholder energy
-    add_emitted_photon(photon);
+// Radiate a photon and store a copy internally
+std::unique_ptr<Photon> Electron::radiate() {
+    auto photon = std::make_unique<Photon>(100.0); // Placeholder energy value
 
     std::cout << "Electron radiated a photon:\n";
     photon->print_data();
+
+    // Store a copy of the photon internally
+    emitted_photons.emplace_back(std::make_unique<Photon>(*photon));
+
     return photon;
 }

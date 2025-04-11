@@ -1,13 +1,15 @@
 #pragma once
 #include "particle.h"
-#include "photon.h"
 #include <vector>
 #include <memory>
 #include <iostream>
 
+// 🔧 Forward declare Photon instead of including photon.h
+class Photon;
+
 class Electron : public Particle {
 private:
-    std::vector<std::shared_ptr<Photon>> emitted_photons;
+    std::vector<std::unique_ptr<Photon>> emitted_photons;
 
 public:
     // Electron rest mass in MeV (constant reference for validation in pair production later)
@@ -17,16 +19,15 @@ public:
     Electron(double energy)
         : Particle(energy) {}
 
-    // Add a photon to this electron's emission list no checking for pair production yet
-    void add_emitted_photon(std::shared_ptr<Photon> photon) {
-        emitted_photons.emplace_back(std::move(photon));
-    }
+    // Radiate a photon (returns ownership to caller)
+    std::unique_ptr<Photon> radiate();
 
-    const std::vector<std::shared_ptr<Photon>>& get_emitted_photons() const {
+    // Access emitted photons (read-only)
+    const std::vector<std::unique_ptr<Photon>>& get_emitted_photons() const {
         return emitted_photons;
     }
 
-    // Override print_data()
+    // Print details
     void print_data() const override {
         std::cout << "Electron:\n"
                   << "  Energy: " << get_energy() << " keV\n"
@@ -34,9 +35,4 @@ public:
                   << "  Photons emitted: " << emitted_photons.size() << "\n"
                   << std::endl;
     }
-
-    // Friend function for external radiation process
-    friend std::shared_ptr<Photon> radiate(Electron& e);
-    std::shared_ptr<Photon> radiate();
-
 };

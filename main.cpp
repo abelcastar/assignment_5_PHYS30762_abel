@@ -1,6 +1,12 @@
 #include <iostream>
 #include "stable.h"
 #include "radioactive.h"
+#include "photon.h"
+#include "electron.h"
+#include "particle.h"
+#include "nucleus.h"
+
+
 
 
 int main() {
@@ -10,29 +16,28 @@ int main() {
 
     stable_nucleus.decay(); 
 
-    RadioactiveNucleus rn1(27, 60, "Co", 5.272);
-    RadioactiveNucleus rn2(55, 137, "Cs", 30.17);
-    RadioactiveNucleus rn3(11, 22, "Na", 2.603);
+    RadioactiveNucleus rn(55, 137, "Cs", 30.17);
+    rn.print_data();
+    rn.decay();
+    rn.print_data();
 
+    // Attempt pair production on each emitted photon
+    const auto& photons = rn.get_emitted_photons();
 
-    rn1.print_data();
-    rn1.decay();
-    rn1.print_data();
-    rn1.pair_production();
-    rn1.radiate();
+    for (const auto& photon : photons) {
+        std::cout << "\n--- Testing pair production ---\n";
+        photon->print_data();
 
-    rn2.print_data();
-    rn2.decay();
-    rn2.print_data();
-    rn2.pair_production();
-    rn2.radiate();
+        auto electrons = pair_production(*photon);
 
-    rn3.print_data();
-    rn3.decay();
-    rn3.print_data();
-    rn3.decay();
-    rn3.pair_production();
-    rn3.radiate();
+        if (electrons.empty()) {
+            std::cout << "→ No electrons were created.\n";
+        } else {
+            std::cout << "Successfully created " << electrons.size() << " electrons.\n";
+        }
+
+        std::cout << "-------------------------------\n";
+    }
 
 
 
