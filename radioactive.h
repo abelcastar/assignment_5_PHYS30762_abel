@@ -1,68 +1,39 @@
+// This file defines the RadioactiveNucleus class, which inherits from 
+// Nucleus and models decay behavior. It uses smart pointers to track 
+// emitted photons, enforces decay constraints, and implements the Rule of 5.
+//=====================================================================
+
 #pragma once
 #include "nucleus.h"
 #include "photon.h"
 
+#include <string>
 #include <iostream>
 #include <memory>
 #include <vector>
 
 class RadioactiveNucleus : public Nucleus {
 private:
-    double half_life;
-    bool has_decayed;
-    std::vector<std::unique_ptr<Photon>> emitted_photons;
-
+  double half_life;
+  bool has_decayed;
+  std::vector<std::unique_ptr<Photon>> emitted_photons;
 
 public:
-    // Constructor
-    RadioactiveNucleus(int z, int a, const std::string& type, double hl)
-        : Nucleus(z, a, type), half_life(hl), has_decayed(false) {}
+  RadioactiveNucleus(int atomic_number_in, int atomic_mass_in, const std::string& type_in, double half_life_in);
 
-// --- Rule of 5 ---
+  // Rule of 5 operators(defined in radioactive.cpp)
+  ~RadioactiveNucleus() override;
+  RadioactiveNucleus(const RadioactiveNucleus& other);
+  RadioactiveNucleus& operator=(const RadioactiveNucleus& other);
+  RadioactiveNucleus(RadioactiveNucleus&& other) noexcept;
+  RadioactiveNucleus& operator=(RadioactiveNucleus&& other) noexcept;
 
-    // Destructor
-    ~RadioactiveNucleus() = default;
+  // Overrides from Nucleus (defined in radioactive.cpp)
+  void decay() override;
+  void print_data() const override;
 
-    // Copy constructor
-    RadioactiveNucleus(const RadioactiveNucleus& other)
-        : Nucleus(other.get_atomic_number(), other.get_atomic_mass(), other.get_type()),
-          half_life(other.half_life),
-          has_decayed(false)  // copying resets decay state
-    {
-        std::cout << "[Copy constructor called — photons not copied]\n";
-    }
-
-    // Copy assignment
-    RadioactiveNucleus& operator=(const RadioactiveNucleus& other) {
-        if (this != &other) {
-            half_life = other.half_life;
-            has_decayed = false;
-            emitted_photons.clear();
-            std::cout << "[Copy assignment called — photons not copied]\n";
-        }
-        return *this;
-    }
-
-    // Move constructor
-    RadioactiveNucleus(RadioactiveNucleus&& other) noexcept = default;
-
-    // Move assignment
-    RadioactiveNucleus& operator=(RadioactiveNucleus&& other) noexcept = default;
-
-    void decay() override;
-    void print_data() const override;
-
-
-
-    // Getters
-    double get_half_life() const { return half_life; }
-    bool is_decayed() const { return has_decayed; }
-
-    const std::vector<std::unique_ptr<Photon>>& get_emitted_photons() const {
-        return emitted_photons;
-    }
-
-
-
-
+  // Getters
+  double get_half_life() const {return half_life;}
+  bool is_decayed()      const {return has_decayed;}
+  const std::vector<std::unique_ptr<Photon>>& get_emitted_photons() const {return emitted_photons;}
 };
