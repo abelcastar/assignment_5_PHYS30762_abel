@@ -1,7 +1,6 @@
 #pragma once
 #include "nucleus.h"
 #include "photon.h"
-#include "electron.h"
 
 #include <iostream>
 #include <memory>
@@ -11,7 +10,7 @@ class RadioactiveNucleus : public Nucleus {
 private:
     double half_life;
     bool has_decayed;
-    std::vector<std::shared_ptr<Photon>> emitted_photons;
+    std::vector<std::unique_ptr<Photon>> emitted_photons;
 
 
 public:
@@ -59,7 +58,7 @@ public:
     double get_half_life() const { return half_life; }
     bool is_decayed() const { return has_decayed; }
 
-    const std::vector<std::shared_ptr<Photon>>& get_emitted_photons() const {
+    const std::vector<std::unique_ptr<Photon>>& get_emitted_photons() const {
         return emitted_photons;
     }
 

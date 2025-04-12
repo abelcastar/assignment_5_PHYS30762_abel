@@ -1,5 +1,4 @@
 #include "radioactive.h"
-#include "electron.h"
 #include "photon.h"
 
 void RadioactiveNucleus::decay() {
@@ -11,6 +10,15 @@ void RadioactiveNucleus::decay() {
             emitted_photons.back()->print_data();
         } else if (get_type() == "Na") {
             emitted_photons.emplace_back(std::make_unique<Photon>(1274.5));
+            emitted_photons.back()->print_data();
+
+            std::cout << "A positron was emitted and annihilated with an electron.\n"
+                    << "  -> Two 511 keV photons were produced from annihilation.\n";
+
+            emitted_photons.emplace_back(std::make_unique<Photon>(511.0));
+            emitted_photons.back()->print_data();
+
+            emitted_photons.emplace_back(std::make_unique<Photon>(511.0));
             emitted_photons.back()->print_data();
         } else if (get_type() == "Co") {
             emitted_photons.emplace_back(std::make_unique<Photon>(1173.0));

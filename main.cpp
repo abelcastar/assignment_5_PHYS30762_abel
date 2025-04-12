@@ -10,37 +10,42 @@
 
 
 int main() {
-    StableNucleus stable_nucleus(12, 24, "Magnesium"); 
-    stable_nucleus.print_data();
+
+RadioactiveNucleus na(11, 22, "Na", 2.603);
+RadioactiveNucleus na22(11, 22, "Na", 2.603);
+
+na.decay();
+
+compton_effect(na, 1, 120.0);  // Scattering one of the 511 keV photons
 
 
-    stable_nucleus.decay(); 
-
-    RadioactiveNucleus rn(55, 137, "Cs", 30.17);
-    rn.print_data();
-    rn.decay();
-    rn.print_data();
-
-    // Attempt pair production on each emitted photon
-    const auto& photons = rn.get_emitted_photons();
-
-    for (const auto& photon : photons) {
-        std::cout << "\n--- Testing pair production ---\n";
-        photon->print_data();
-
-        auto electrons = pair_production(*photon);
-
-        if (electrons.empty()) {
-            std::cout << "→ No electrons were created.\n";
-        } else {
-            std::cout << "Successfully created " << electrons.size() << " electrons.\n";
-        }
-
-        std::cout << "-------------------------------\n";
-    }
+Electron e2 = photoelectric_effect(na, 1);  // Clean and simple
 
 
+compton_effect(na, 1, 120.0);  // Scattering one of the 511 keV photons
 
+na22.decay();
+
+auto electrons = pair_production(na22, 0);
+
+
+pair_production(na22, 2);
+
+Electron e3 = photoelectric_effect(na, 1); 
+
+Electron e(300.0);
+
+// Try to radiate 2 photons of 100 keV
+e.radiate(2, 100.0);
+
+e.print_data();
+//adds to that vector
+e.radiate(2,25.0);
+
+// Print returned photons
+for (const auto& p : e.get_emitted_photons()) {
+    p->print_data();
+}
 
 
 
