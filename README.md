@@ -114,9 +114,7 @@ Each executable writes comprehensive, tagged console output so you can diff resu
 
 ---
 
-## Author
-   
-   Abel Castaneda Rodriguez
+## Author: ###Abel Castaneda Rodriguez
 ---
 
 ## Use of AI
