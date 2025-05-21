@@ -74,25 +74,25 @@ PROJECT-PARTICLE-DETECTOR-ABELCASTAR
 
 ---
 
-## How to Build main.cpp
+# How to Build main.cpp
 
 ```bash
 g++ -o main_program main.cpp  logic/particles/particle.cpp logic/particles/photon.cpp logic/particles/hadron.cpp logic/particles/four_momentum.cpp logic/detector/detector.cpp logic/detector/muon_chamber.cpp logic/detector/scintillator.cpp logic/detector/measurement_detector.cpp logic/detector/tracker.cpp logic/detector/hcal.cpp logic/detector/ecal.cpp logic/detector/full_detector.cpp
 ```
 
-*subsequent files*
+*subsequent test file compile lines*
 
-# test_main_particles.cpp
+### test_main_particles.cpp
 ```bash
 g++ -o main_program testing/test_main_particles.cpp  logic/particles/particle.cpp logic/particles/photon.cpp logic/particles/hadron.cpp logic/particles/four_momentum.cpp logic/detector/detector.cpp logic/detector/muon_chamber.cpp logic/detector/scintillator.cpp logic/detector/measurement_detector.cpp logic/detector/tracker.cpp logic/detector/hcal.cpp logic/detector/ecal.cpp logic/detector/full_detector.cpp
 ```
 
-# test_main_detectors.cpp
+### test_main_detectors.cpp
 ```bash
 g++ -o main_program testing/test_main_detectors.cpp  logic/particles/particle.cpp logic/particles/photon.cpp logic/particles/hadron.cpp logic/particles/four_momentum.cpp logic/detector/detector.cpp logic/detector/muon_chamber.cpp logic/detector/scintillator.cpp logic/detector/measurement_detector.cpp logic/detector/tracker.cpp logic/detector/hcal.cpp logic/detector/ecal.cpp logic/detector/full_detector.cpp
 ```
 
-# test_main_full_detector.cpp
+### test_main_full_detector.cpp
 ```bash
 g++ -o main_program testing/test_main_full_detector.cpp  logic/particles/particle.cpp logic/particles/photon.cpp logic/particles/hadron.cpp logic/particles/four_momentum.cpp logic/detector/detector.cpp logic/detector/muon_chamber.cpp logic/detector/scintillator.cpp logic/detector/measurement_detector.cpp logic/detector/tracker.cpp logic/detector/hcal.cpp logic/detector/ecal.cpp logic/detector/full_detector.cpp
 ```
@@ -106,15 +106,16 @@ g++ -o main_program testing/test_main_full_detector.cpp  logic/particles/particl
 
 2. **Testing drivers**
 
-   * `test_main_particles.cpp` : validates setters, energy clamping, name/charge switching.
-   * `test_main_detectors.cpp` :  diagnostics & measurement routines per detector.
-   * `test_main_full_detector.cpp` :  integration tests for adding, replacing, and querying detectors.
+   - `test_main_particles.cpp` : validates setters, energy clamping, name/charge switching.
+   - `test_main_detectors.cpp` :  diagnostics & measurement routines per detector.
+   - `test_main_full_detector.cpp` :  integration tests for adding, replacing, and querying detectors.
 
 Each executable writes comprehensive, tagged console output so you can diff results across resolutions or compiler versions.
 
 ---
 
 ## Author
+---
 
 Abel Castaneda Rodriguez
 ---
